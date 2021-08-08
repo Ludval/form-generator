@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-form": {
+    "ngx-form-generator": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,19 +20,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-form",
+            "outputPath": "dist/ngx-form-generator",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -72,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngx-form:build:production"
+              "browserTarget": "ngx-form-generator:build:production"
             },
             "development": {
-              "browserTarget": "ngx-form:build:development"
+              "browserTarget": "ngx-form-generator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-form:build"
+            "browserTarget": "ngx-form-generator:build"
           }
         },
         "test": {
@@ -94,18 +89,44 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
+          }
+        }
+      }
+    },
+    "form-generator": {
+      "projectType": "library",
+      "root": "projects/form-generator",
+      "sourceRoot": "projects/form-generator/src",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/form-generator/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/form-generator/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/form-generator/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/form-generator/src/test.ts",
+            "tsConfig": "projects/form-generator/tsconfig.spec.json",
+            "karmaConfig": "projects/form-generator/karma.conf.js"
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-form"
+  "defaultProject": "ngx-form-generator"
 }
